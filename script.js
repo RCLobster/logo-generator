@@ -1,11 +1,8 @@
-/*
-THE PLAN
-1. take input for all parameters
-*/
 
 // save dependencies as variables
 const inquirer = require('inquirer');
 const jest = require('jest');
+const shapes = require('./lib/shapes');
 
 inquirer
     .prompt([
@@ -32,6 +29,18 @@ inquirer
         }
 
     ])
-    .then((answers) => {
-        console.log(answers);
+    .then((data) => {
+        console.log(data);
+
+        let newShape;
+        switch(data.shape.toLowerCase()) {
+            case 'circle':
+                newShape = new shapes.Circle(data.text, data.txtColor, data.shapeColor, data.shape);
+                break;
+            case 'triangle':
+                newShape = new shapes.Triangle(data.text, data.txtColor, data.shapeColor, data.shape);
+                break
+        }
+
+        console.log(newShape);
     });
