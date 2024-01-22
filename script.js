@@ -40,6 +40,12 @@ inquirer
             case 'triangle':
                 newShape = new shapes.Triangle(data.text, data.txtColor, data.shapeColor, data.shape);
                 break
+            case 'square':
+                newShape = new shapes.Square(data.text, data.txtColor, data.shapeColor, data.shape);
+                break
+            default:
+                console.error('Invalid Shape Choice');
+                return;
         }
 
         console.log(newShape);
