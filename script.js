@@ -52,9 +52,9 @@ inquirer
         //console.log(newShape);
         if(data.shape === "Circle") {
             writeCircleSVG(newShape);
-        } else if(data.shape === "triangle") {
+        } else if(data.shape === "Triangle") {
             writeTriangleSVG(newShape);
-        } else if(data.shape === "square") {
+        } else if(data.shape === "Square") {
             writeSquareSVG(newShape);
         }
     })
@@ -76,7 +76,7 @@ function writeCircleSVG(shape) {
         if(err){
             console.log(err);
         } else {
-            console.log('Shape created and saved as shape.svg!');
+            console.log('New circle created and saved!');
         }
     })
 };
@@ -84,16 +84,32 @@ function writeCircleSVG(shape) {
 function writeTriangleSVG(shape) {
     const shapeData = `
 <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-    <${shape.shape.toLowerCase()} points="50,10 90,90 10,90" fill="${shape.shapeColor}" />
-    <text x="16.5%" y="26%" dominant-baseline="middle" text-anchor="middle" fill="${shape.txtColor}" font-size="20" font-family="Arial">${shape.text}</text>
+    <polygon points="50,10 90,90 10,90" fill="${shape.shapeColor}" />
+    <text x="16.75%" y="33%" dominant-baseline="middle" text-anchor="middle" fill="${shape.txtColor}" font-size="20" font-family="Arial">${shape.text}</text>
 </svg>`;
 
     fs.writeFile(`./examples/${shape.text}-${shape.shape}.svg`, shapeData, (err) => {
         if(err){
             console.log(err);
         } else {
-            console.log('Shape created and saved as shape.svg!');
+            console.log('New triangle created and saved!');
         }
     })
+};
+
+function writeSquareSVG(shape) {
+    const shapeData = `
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" x="10" y="10" fill="${shape.shapeColor}" />
+    <text x="20%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="${shape.txtColor}" font-size="20" font-family="Arial">${shape.text}</text>
+</svg>`;
+
+fs.writeFile(`./examples/${shape.text}-${shape.shape}.svg`, shapeData, (err) => {
+    if(err){
+        console.log(err);
+    } else {
+        console.log('New square created and saved!');
+    }
+})
 
 };
