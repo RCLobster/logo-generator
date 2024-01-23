@@ -2,6 +2,7 @@
 // save dependencies as variables
 const inquirer = require('inquirer');
 const jest = require('jest');
+const fs = require('fs');
 const shapes = require('./lib/shapes');
 
 inquirer
@@ -48,5 +49,51 @@ inquirer
                 return;
         }
 
-        console.log(newShape);
+        //console.log(newShape);
+        if(data.shape === "Circle") {
+            writeCircleSVG(newShape);
+        } else if(data.shape === "triangle") {
+            writeTriangleSVG(newShape);
+        } else if(data.shape === "square") {
+            writeSquareSVG(newShape);
+        }
+    })
+    .catch((err) => {
+        if(err){
+            console.error(err);
+        }
     });
+
+function writeCircleSVG(shape) {
+    console.log(shape);
+    const shapeData = `
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    <${shape.shape.toLowerCase()} cx="50" cy="50" r="40" fill="${shape.shapeColor}" />
+    <text x="16.5%" y="26%" dominant-baseline="middle" text-anchor="middle" fill="${shape.txtColor}" font-size="20" font-family="Arial">${shape.text}</text>
+</svg>`;
+
+    fs.writeFile(`./examples/${shape.text}-${shape.shape}.svg`, shapeData, (err) => {
+        if(err){
+            console.log(err);
+        } else {
+            console.log('Shape created and saved as shape.svg!');
+        }
+    })
+};
+
+function writeTriangleSVG(shape) {
+    const shapeData = `
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    <${shape.shape.toLowerCase()} points="50,10 90,90 10,90" fill="${shape.shapeColor}" />
+    <text x="16.5%" y="26%" dominant-baseline="middle" text-anchor="middle" fill="${shape.txtColor}" font-size="20" font-family="Arial">${shape.text}</text>
+</svg>`;
+
+    fs.writeFile(`./examples/${shape.text}-${shape.shape}.svg`, shapeData, (err) => {
+        if(err){
+            console.log(err);
+        } else {
+            console.log('Shape created and saved as shape.svg!');
+        }
+    })
+
+};
